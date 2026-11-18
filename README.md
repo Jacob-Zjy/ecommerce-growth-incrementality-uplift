@@ -12,7 +12,7 @@
 
 ## 数据与边界
 
-项目使用 [Criteo Uplift Prediction Dataset](https://ailab.criteo.com/criteo-uplift-prediction-dataset/)，这是公开广告随机实验数据，含匿名用户特征、treatment、exposure、visit 和 conversion。原始数据规模约 1,400 万行，数据集按 CC BY-NC-SA 4.0 发布；仓库不提交原始压缩包，只通过 Hugging Face datasets server 拉取 3,000 行可复现样本。这个数据集不是小红书或字节内部数据，f0–f11 也不代表具体内容标签；“小红书/抖音式”指业务问题与漏斗结构，因果结论只对公开随机实验样本负责。
+项目使用 [Criteo Uplift Prediction Dataset](https://ailab.criteo.com/criteo-uplift-prediction-dataset/)，这是公开广告随机实验数据，含匿名用户特征、treatment、exposure、visit 和 conversion。原始 benchmark 规模很大，数据集按 CC BY-NC-SA 4.0 发布；仓库不提交原始压缩包，只通过 Hugging Face datasets server 拉取 3,000 行可复现样本。这个数据集不是小红书或字节内部数据，f0–f11 也不代表具体内容标签；“小红书/抖音式”指业务问题与漏斗结构，因果结论只对公开随机实验样本负责。
 
 ## 结果摘要（本仓库样本）
 
