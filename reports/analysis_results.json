@@ -1,0 +1,59 @@
+{
+  "n_rows": 3000,
+  "treatment_rate": 0.7333333333333333,
+  "conversion_rate": 0.0016666666666666668,
+  "visit_rate": 0.03966666666666667,
+  "baseline": {
+    "visit": {
+      "treated_rate": 0.045,
+      "control_rate": 0.025,
+      "lift": 0.019999999999999997,
+      "ci_low": 0.006133798888035601,
+      "ci_high": 0.033866201111964395
+    },
+    "conversion": {
+      "treated_rate": 0.0018181818181818182,
+      "control_rate": 0.00125,
+      "lift": 0.0005681818181818182,
+      "ci_low": -0.0024605216482961835,
+      "ci_high": 0.00359688528465982
+    }
+  },
+  "best_10pct_policy_visit": {
+    "target_pct": 10.0,
+    "n": 105.0,
+    "uplift_rate_diff": 0.015432098765432098,
+    "ipw_incremental_rate": 0.03246753246753249,
+    "incremental_per_1000": 32.46753246753249,
+    "net_value_per_user": 0.11233766233766244
+  },
+  "best_10pct_policy_conversion": {
+    "target_pct": 10.0,
+    "n": 105.0,
+    "uplift_rate_diff": 0.0,
+    "ipw_incremental_rate": 0.0,
+    "incremental_per_1000": 0.0,
+    "net_value_per_user": -0.05
+  },
+  "model_comparison_10pct": [
+    {
+      "model": "T-learner(RandomForest)",
+      "target_pct": 10.0,
+      "n": 105.0,
+      "uplift_rate_diff": 0.015432098765432098,
+      "ipw_incremental_rate": 0.03246753246753249,
+      "incremental_per_1000": 32.46753246753249,
+      "net_value_per_user": 0.11233766233766244
+    },
+    {
+      "model": "S-learner(RandomForest)",
+      "target_pct": 10.0,
+      "n": 105.0,
+      "uplift_rate_diff": 0.0,
+      "ipw_incremental_rate": 0.0,
+      "incremental_per_1000": 0.0,
+      "net_value_per_user": -0.05
+    }
+  ],
+  "data_note": "Results use a 3,000-row stratified-by-offset sample fetched from the public Criteo uplift benchmark; rerun fetch_hf_sample.py for the reproducible sample and scale the same pipeline to the full split."
+}

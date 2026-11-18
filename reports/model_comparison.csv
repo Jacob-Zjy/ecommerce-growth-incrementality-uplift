@@ -1,0 +1,3 @@
+model,target_pct,n,uplift_rate_diff,ipw_incremental_rate,incremental_per_1000,net_value_per_user
+T-learner(RandomForest),10.0,105.0,0.015432098765432098,0.03246753246753249,32.46753246753249,0.11233766233766244
+S-learner(RandomForest),10.0,105.0,0.0,0.0,0.0,-0.05
