@@ -1,8 +1,8 @@
-# 社交电商曝光增量与机器学习分层
+# 互联网用户增长增量实验与机器学习分层系统
 
-**Xiaohongshu / Douyin-like Commerce Incrementality & Uplift Modeling**
+**Internet Growth Incrementality & Uplift Decision System**
 
-这是一个面向内容电商数据科学、数据分析和增长运营岗位的可复现项目。项目回答一个具体的业务问题：**当平台有固定曝光预算时，应该把内容/广告曝光投给谁，才能带来更多“额外”的访问和转化？**
+这是一个面向互联网大厂数据科学、数据分析和增长运营岗位的可复现项目。项目回答一个具体的业务问题：**当平台有固定曝光预算时，应该把触达资源投给谁，才能带来更多“额外”的访问和转化？**
 
 项目把问题拆成三层：
 
@@ -12,7 +12,7 @@
 
 ## 数据与边界
 
-项目使用 [Criteo Uplift Prediction Dataset](https://ailab.criteo.com/criteo-uplift-prediction-dataset/)，这是公开广告随机实验数据，含匿名用户特征、treatment、exposure、visit 和 conversion。原始 benchmark 规模很大，数据集按 CC BY-NC-SA 4.0 发布；仓库不提交原始压缩包，只通过 Hugging Face datasets server 拉取 3,000 行可复现样本。这个数据集不是小红书或字节内部数据，f0–f11 也不代表具体内容标签；“小红书/抖音式”指业务问题与漏斗结构，因果结论只对公开随机实验样本负责。
+项目使用 [Criteo Uplift Prediction Dataset](https://ailab.criteo.com/criteo-uplift-prediction-dataset/)，这是公开广告随机实验数据，含匿名用户特征、treatment、exposure、visit 和 conversion。原始 benchmark 规模很大，数据集按 CC BY-NC-SA 4.0 发布；仓库不提交原始压缩包，只通过 Hugging Face datasets server 拉取 3,000 行可复现样本。f0–f11 是匿名特征，不能解释成具体业务标签；项目重点是验证互联网增长场景中的实验评估、异质性建模和预算决策方法。
 
 ## 结果摘要（本仓库样本）
 

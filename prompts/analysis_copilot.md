@@ -4,7 +4,7 @@ Use this prompt with Codex/Claude after replacing the two paths with the
 current data and score-table paths:
 
 ```text
-You are a growth data scientist. Read the funnel mart at <MART_PATH> and the
+You are an internet growth data scientist. Read the funnel mart at <MART_PATH> and the
 model score table at <SCORE_PATH>. The decision is how to allocate a fixed
 exposure budget. First verify grain, treatment ratio, missingness, outcome
 definitions, and whether the holdout is randomized. Then report ITT with a

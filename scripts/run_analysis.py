@@ -1,7 +1,7 @@
-"""Run the Xiaohongshu-like commerce incrementality analysis.
+"""Run the internet-growth incrementality analysis.
 
 The public Criteo uplift benchmark is a randomized advertising experiment.  We
-use it as a transparent proxy for a content/e-commerce platform's exposure
+use it as a transparent proxy for an internet platform's exposure
 decision: predict heterogeneous response, then spend only on users with
 positive incremental conversion rather than users who were already likely to
 convert.
@@ -171,7 +171,7 @@ def main() -> None:
         "# 决策备忘录：社交电商曝光增量与机器学习分层",
         "",
         "## 业务问题",
-        "在小红书/抖音式内容电商中，预算不应只投给预测上最容易转化的人，而应优先投给曝光后会产生额外转化的人。项目把决策拆成：是否有增量、谁有增量、预算投到多少比例。",
+        "在互联网平台的增长投放、用户召回和内容触达中，预算不应只投给预测上最容易转化的人，而应优先投给曝光后会产生额外转化的人。项目把决策拆成：是否有增量、谁有增量、预算投到多少比例。",
         "",
         "## 结果（公开代理数据）",
         f"- 样本量：{len(frame):,}；曝光组占比：{frame.treatment.mean():.1%}；转化率：{frame.conversion.mean():.2%}。",
@@ -183,7 +183,7 @@ def main() -> None:
         "先以 10% 分层人群做小流量 holdout，保留随机对照组；同时监控增量转化、曝光成本、频控和自然转化被重复触达的比例。上线前用平台真实的曝光成本、订单毛利和人群特征重新校准策略价值。",
         "",
         "## 解释边界",
-        "Criteo 是公开广告随机实验，不是小红书或字节内部数据；f0–f11 是匿名特征，不能把它们解释成具体内容标签。因果结论来自随机化，机器学习分层只用于估计异质性，最终仍需线上 holdout 验证。",
+        "Criteo 是公开广告随机实验；f0–f11 是匿名特征，不能把它们解释成具体业务标签。因果结论来自随机化，机器学习分层只用于估计异质性，最终仍需线上 holdout 验证。",
     ]
     (out_dir / "decision_memo.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
