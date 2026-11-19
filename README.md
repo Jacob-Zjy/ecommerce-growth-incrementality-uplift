@@ -32,6 +32,16 @@ UCI 数据按 CC BY 4.0 发布，Criteo benchmark 按其数据许可发布。f0�
 
 ![Top products by revenue](reports/ecommerce_figures/top_products_revenue.png)
 
+## 增量模型结果
+
+随机触达模块将商品访问作为主要优化指标，输出模型排序后的增量曲线、预算策略价值和特征重要性：
+
+![Incremental visit uplift curve](reports/figures/uplift_curve.png)
+
+![Policy value curve](reports/figures/policy_value_curve.png)
+
+![Feature importance](reports/figures/feature_importance.png)
+
 ## 结果摘要（本仓库样本）
 
 运行 `python scripts/run_analysis.py` 后，结果写入 `reports/`：
