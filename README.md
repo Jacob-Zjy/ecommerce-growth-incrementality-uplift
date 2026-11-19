@@ -12,7 +12,25 @@
 
 ## 数据与边界
 
-项目使用 [Criteo Uplift Prediction Dataset](https://ailab.criteo.com/criteo-uplift-prediction-dataset/)，这是公开随机营销触达实验数据，含匿名用户特征、treatment、exposure、visit 和 conversion；在本项目中将 visit 作为商品访问代理、conversion 作为购买转化代理。原始 benchmark 规模很大，数据集按 CC BY-NC-SA 4.0 发布；仓库不提交原始压缩包，只通过 Hugging Face datasets server 拉取 3,000 行可复现样本。f0–f11 是匿名特征，不能解释成具体商品或用户标签；项目重点是验证电商增长场景中的实验评估、异质性建模和预算决策方法。
+项目使用两类公开数据。第一类是 [UCI Online Retail](https://archive.ics.uci.edu/dataset/352/online-retail) 订单数据，用于商品、客户、GMV、客单价和复购分析；第二类是 [Criteo Uplift Prediction Dataset](https://ailab.criteo.com/criteo-uplift-prediction-dataset/)，用于随机触达实验、增量效果和 CATE/uplift 建模。在 Criteo 数据中，visit 作为商品访问代理、conversion 作为购买转化代理。订单数据是观察性数据，复购差异不能直接解释为促销因果效果；因果结论继续由随机实验模块负责。
+
+UCI 数据按 CC BY 4.0 发布，Criteo benchmark 按其数据许可发布。f0–f11 是匿名特征，不能解释成具体商品或用户标签；项目把两类数据分别用于“电商经营分析”和“增量决策”，避免把观察性订单数据误写成因果结果。
+
+## 电商经营分析结果
+
+运行 `python scripts/analyze_ecommerce.py` 后，项目会从订单明细生成订单表、客户指标表和商品排行：
+
+- 清洗后订单 **18,532 笔**，客户 **4,338 人**，商品 SKU **3,665 个**。
+- 清洗后 GMV **£8.91M**，平均客单价 **£480.87**。
+- 订单数不少于 2 笔的复购客户占比 **65.6%**；该指标用于经营分层，不直接作为促销因果结论。
+
+### 可视化结果
+
+![Monthly revenue trend](reports/ecommerce_figures/monthly_revenue.png)
+
+![Customer repeat-order distribution](reports/ecommerce_figures/repeat_order_distribution.png)
+
+![Top products by revenue](reports/ecommerce_figures/top_products_revenue.png)
 
 ## 结果摘要（本仓库样本）
 
@@ -29,19 +47,25 @@
 
 ```text
 data/sample/                         可复现的公开样本（不含内部数据）
+data/ecommerce/                      UCI Online Retail 订单数据
 scripts/fetch_hf_sample.py           从公开数据服务拉取样本
+scripts/download_uci_retail.py       下载 UCI 订单数据
+scripts/analyze_ecommerce.py         生成客户、订单、商品指标和电商图表
 scripts/run_analysis.py              训练模型、估计 uplift、生成结果图
 sql/01_funnel_metrics.sql            SQL 漏斗与 ITT 查询
 sql/02_policy_segments.sql           预算分层查询模板
 prompts/analysis_copilot.md          Codex/Claude 分析工作流提示词
 reports/decision_memo.md             决策备忘录
 reports/figures/                     uplift、策略价值、特征重要性图
+reports/ecommerce_figures/           GMV、复购和商品排行图
 ```
 
 ## 运行
 
 ```powershell
 python -m pip install -r requirements.txt
+python scripts/download_uci_retail.py
+python scripts/analyze_ecommerce.py
 python scripts/fetch_hf_sample.py
 python scripts/run_analysis.py
 ```
