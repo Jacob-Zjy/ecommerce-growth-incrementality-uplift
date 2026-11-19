@@ -26,6 +26,14 @@ UCI 数据按 CC BY 4.0 发布，Criteo benchmark 按其数据许可发布。f0�
 - 清洗后 GMV **£8.91M**，平均客单价 **£480.87**。
 - 订单数不少于 2 笔的复购客户占比 **65.6%**；该指标用于经营分层，不直接作为促销因果结论。
 
+### 复购预测模型
+
+以 2011-10-10 为时间切分点，仅使用切分日前的订单行为构建客户特征，预测未来 60 天是否复购。Random Forest 在留出集上的 ROC-AUC 为 **0.755**、PR-AUC 为 **0.776**；预测分数最高的 10% 客户复购率为 **95.5%**，相对整体提升 **1.99x**。该模型用于运营优先级排序，优惠券或推荐位的真实增量仍需随机 holdout 验证。
+
+![Repeat-purchase model lift](reports/ecommerce_figures/repeat_purchase_lift.png)
+
+![Repeat-purchase model feature importance](reports/ecommerce_figures/repeat_purchase_feature_importance.png)
+
 ### 可视化结果
 
 ![Monthly revenue trend](reports/ecommerce_figures/monthly_revenue.png)
@@ -63,6 +71,7 @@ data/ecommerce/                      UCI Online Retail 订单数据
 scripts/fetch_hf_sample.py           从公开数据服务拉取样本
 scripts/download_uci_retail.py       下载 UCI 订单数据
 scripts/analyze_ecommerce.py         生成客户、订单、商品指标和电商图表
+scripts/train_repeat_purchase_model.py 训练未来 60 天复购预测模型
 scripts/run_analysis.py              训练模型、估计 uplift、生成结果图
 sql/01_funnel_metrics.sql            SQL 漏斗与 ITT 查询
 sql/02_policy_segments.sql           预算分层查询模板
@@ -70,6 +79,7 @@ prompts/analysis_copilot.md          Codex/Claude 分析工作流提示词
 reports/decision_memo.md             决策备忘录
 reports/figures/                     uplift、策略价值、特征重要性图
 reports/ecommerce_figures/           GMV、复购和商品排行图
+reports/repeat_purchase_model_memo.md 复购预测模型结果
 ```
 
 ## 运行
@@ -78,6 +88,7 @@ reports/ecommerce_figures/           GMV、复购和商品排行图
 python -m pip install -r requirements.txt
 python scripts/download_uci_retail.py
 python scripts/analyze_ecommerce.py
+python scripts/train_repeat_purchase_model.py
 python scripts/fetch_hf_sample.py
 python scripts/run_analysis.py
 ```

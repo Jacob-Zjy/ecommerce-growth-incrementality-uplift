@@ -1,0 +1,11 @@
+{
+  "cutoff": "2011-10-10T12:50:00",
+  "history_customers": 3731,
+  "future_60d_repeat_rate": 0.4797641383007237,
+  "roc_auc": 0.7551449990577218,
+  "pr_auc": 0.7756700112400423,
+  "top_decile_precision": 0.9553571428571429,
+  "top_decile_lift": 1.9913058659217877,
+  "top_decile_n": 112,
+  "note": "Features use only orders before the cutoff; the target is any order in the following 60 days."
+}
