@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "Internet Growth Incrementality and Uplift Decision System"
+title: "E-commerce Growth Incrementality and Uplift Decision System"
 message: "If you use this portfolio project, please cite the repository and the Criteo Uplift Prediction Dataset."
 type: software
 authors:
@@ -9,5 +9,5 @@ authors:
     orcid: ""
 version: 1.0.0
 date-released: 2026-11-19
-url: https://github.com/Jacob-Zjy/internet-growth-incrementality-uplift
+url: https://github.com/Jacob-Zjy/ecommerce-growth-incrementality-uplift
 license: MIT

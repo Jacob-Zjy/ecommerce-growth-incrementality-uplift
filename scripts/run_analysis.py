@@ -1,7 +1,7 @@
-"""Run the internet-growth incrementality analysis.
+"""Run the e-commerce growth incrementality analysis.
 
-The public Criteo uplift benchmark is a randomized advertising experiment.  We
-use it as a transparent proxy for an internet platform's exposure
+The public Criteo uplift benchmark is a randomized marketing-touch experiment.  We
+use it as a transparent proxy for an e-commerce platform's promotion/product-touch
 decision: predict heterogeneous response, then spend only on users with
 positive incremental conversion rather than users who were already likely to
 convert.
@@ -168,22 +168,22 @@ def main() -> None:
     }
     (out_dir / "analysis_results.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     lines = [
-        "# 决策备忘录：社交电商曝光增量与机器学习分层",
+        "# 决策备忘录：电商用户增量转化与机器学习分层",
         "",
         "## 业务问题",
-        "在互联网平台的增长投放、用户召回和内容触达中，预算不应只投给预测上最容易转化的人，而应优先投给曝光后会产生额外转化的人。项目把决策拆成：是否有增量、谁有增量、预算投到多少比例。",
+        "在电商平台的商品促销、用户召回和商品触达中，预算不应只投给预测上最容易购买的人，而应优先投给触达后会产生额外购买的人。项目把决策拆成：是否有增量、谁有增量、预算投到多少比例。",
         "",
         "## 结果（公开代理数据）",
-        f"- 样本量：{len(frame):,}；曝光组占比：{frame.treatment.mean():.1%}；转化率：{frame.conversion.mean():.2%}。",
-        f"- 全量 ITT：访问增量 {baseline['visit']['lift'] * 100:.2f}pp（95% CI {baseline['visit']['ci_low'] * 100:.2f}–{baseline['visit']['ci_high'] * 100:.2f}pp）；转化增量 {baseline['conversion']['lift'] * 100:.2f}pp（95% CI {baseline['conversion']['ci_low'] * 100:.2f}–{baseline['conversion']['ci_high'] * 100:.2f}pp）。",
-        f"- T-learner 选取预测增量最高的 10% 用户时，IPW 估计增量访问约 {metrics_t.iloc[2].ipw_incremental_rate * 100:.2f}pp/用户；按单次增量访问价值 $5、曝光成本 $0.50 的情景，策略净价值估计为 ${metrics_t.iloc[2].net_value_per_user:.3f}/合格用户。",
-        f"- 同一人群的转化增量估计为 {conversion_t.iloc[2].ipw_incremental_rate * 100:.2f}pp；转化样本稀疏，因此只作方向性 guardrail，不能替代线上 holdout。",
+        f"- 样本量：{len(frame):,}；触达组占比：{frame.treatment.mean():.1%}；购买转化率：{frame.conversion.mean():.2%}。",
+        f"- 全量 ITT：商品访问增量 {baseline['visit']['lift'] * 100:.2f}pp（95% CI {baseline['visit']['ci_low'] * 100:.2f}–{baseline['visit']['ci_high'] * 100:.2f}pp）；购买转化增量 {baseline['conversion']['lift'] * 100:.2f}pp（95% CI {baseline['conversion']['ci_low'] * 100:.2f}–{baseline['conversion']['ci_high'] * 100:.2f}pp）。",
+        f"- T-learner 选取预测增量最高的 10% 用户时，IPW 估计增量商品访问约 {metrics_t.iloc[2].ipw_incremental_rate * 100:.2f}pp/用户；按单次增量商品访问价值 $5、触达成本 $0.50 的情景，策略净价值估计为 ${metrics_t.iloc[2].net_value_per_user:.3f}/合格用户。",
+        f"- 同一人群的购买转化增量估计为 {conversion_t.iloc[2].ipw_incremental_rate * 100:.2f}pp；购买事件样本稀疏，因此只作方向性 guardrail，不能替代线上 holdout。",
         "",
         "## 建议",
-        "先以 10% 分层人群做小流量 holdout，保留随机对照组；同时监控增量转化、曝光成本、频控和自然转化被重复触达的比例。上线前用平台真实的曝光成本、订单毛利和人群特征重新校准策略价值。",
+        "先以 10% 分层人群做小流量 holdout，保留随机对照组；同时监控增量购买、触达成本、频控和自然购买被重复触达的比例。上线前用平台真实的触达成本、订单毛利和人群特征重新校准策略价值。",
         "",
         "## 解释边界",
-        "Criteo 是公开广告随机实验；f0–f11 是匿名特征，不能把它们解释成具体业务标签。因果结论来自随机化，机器学习分层只用于估计异质性，最终仍需线上 holdout 验证。",
+        "Criteo 是公开随机营销触达实验；f0–f11 是匿名特征，不能把它们解释成具体商品或用户标签。因果结论来自随机化，机器学习分层只用于估计异质性，最终仍需线上 holdout 验证。",
     ]
     (out_dir / "decision_memo.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
